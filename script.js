@@ -110,7 +110,11 @@ function processInformation() {
   ]);
 
   const ratingsTensor = tf.tensor(ratings).expandDims(0);
-  const user_feats = tf.matMul(ratingsTensor, band_feats.transpose());
+  const user_feats = tf.matMul(
+    band_feats.transpose(),
+    ratingsTensor.transpose()
+  );
+
   const topGenreIndex = tf.argMax(user_feats, 1).dataSync()[0];
 
   // Limpia la salida anterior
